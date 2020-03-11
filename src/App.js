@@ -9,6 +9,7 @@ import PostDetails from './PostDetails';
 
 function App() {
   const [posts, setPosts] = useState([]);
+  console.log("posts", posts)
 
   const addPost = newPost => {
     setPosts(oldPosts => [
@@ -34,7 +35,7 @@ function App() {
         <Route exact path="/">
           <Home posts={posts} />
         </Route>
-        <Route exact path="/posts/:id">
+        <Route exact path="/posts/:postId">
           <PostDetails posts={posts} updatePost={updatePost} deletePost = {deletePost} />
         </Route>
         <Route exact path="/new">

@@ -25,10 +25,12 @@ function AddEditPostForm({ addEditPost, post = null, toggleForm }) {
   const handleSubmit = evt => {
     evt.preventDefault();
     const id = post ? post.id : uuid();
+    const comments = post ? post.comments : [];
 
     addEditPost({
       ...formData,
-      id
+      id,
+      comments
     }, id);
 
     post ? toggleForm() : history.push("/");
