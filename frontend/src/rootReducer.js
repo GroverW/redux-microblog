@@ -1,4 +1,5 @@
 import {
+  LOAD_POSTS,
   ADD_UPDATE_POST,
   DELETE_POST,
   ADD_COMMENT,
@@ -9,10 +10,13 @@ const INITIAL_STATE = {
   posts: {}
 }
 
-
 function rootReducer(state = INITIAL_STATE, action) {
   const oldPost = action.payload ? state.posts[action.payload.postId] : null;
   switch (action.type) {
+    case LOAD_POSTS: 
+      return {...state, posts: action.payload.posts};
+    
+
     case ADD_UPDATE_POST:
       return {
         ...state,

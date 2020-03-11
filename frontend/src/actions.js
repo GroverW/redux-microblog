@@ -1,9 +1,14 @@
 import {
+  LOAD_POSTS,
   ADD_UPDATE_POST,
   DELETE_POST,
   ADD_COMMENT,
   DELETE_COMMENT
 } from './actionTypes';
+
+export function loadPosts(posts){
+  return { type: LOAD_POSTS, payload: { posts } };
+}
 
 export function addUpdatePost(post) {
   return { type: ADD_UPDATE_POST, payload: { post } };

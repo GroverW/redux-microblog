@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -9,6 +9,7 @@ import PostDetails from './PostDetails';
 
 
 function App() {
+  
   return (
     <div className="App">
       <NavBar />
