@@ -20,9 +20,9 @@ function PostDetails({ posts, updatePost }) {
   return (
     <div className="PostDetails">
       {isEditing
-        ? <AddEditPostForm post={post} addEditPost={updatePost} />
+        ? <AddEditPostForm post={post} addEditPost={updatePost} toggleForm={handleToggle} />
         : <Post post={post} />}
-      <button onClick={handleToggle}>Edit Post</button>
+      {!isEditing && <button onClick={handleToggle}>Edit Post</button>}
     </div>
   )
 }

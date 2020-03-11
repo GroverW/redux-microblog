@@ -8,9 +8,10 @@ const INITIAL_STATE = {
   body: ""
 }
 
-function AddEditPostForm({ addEditPost, post = null }) {
+function AddEditPostForm({ addEditPost, post = null, toggleForm }) {
   const [formData, setFormData] = useState(post || INITIAL_STATE);
   const history = useHistory();
+
 
 
   const handleChange = evt => {
@@ -24,16 +25,17 @@ function AddEditPostForm({ addEditPost, post = null }) {
   const handleSubmit = evt => {
     evt.preventDefault();
     const id = post ? post.id : uuid();
-    console.log(id);
+
     addEditPost({
       ...formData,
       id
     }, id);
-    history.push('/');
+
+    post ? toggleForm() : history.push("/");
   }
 
   const handleCancel = () => {
-    history.push('/');
+    post ? toggleForm() : history.push("/");
   }
 
   return (
