@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -9,38 +9,18 @@ import PostDetails from './PostDetails';
 
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  console.log("posts", posts)
-
-  const addPost = newPost => {
-    setPosts(oldPosts => [
-      ...oldPosts,
-      newPost
-    ]);
-  }
-
-  const updatePost = (updatedPost, id) => {
-    const newPosts = posts.map(post => post.id === id ? updatedPost : post);
-    setPosts(oldPosts => newPosts);
-  }
-
-  const deletePost = id => {
-    const newPosts = posts.filter(post => post.id !== id);
-    setPosts(oldPosts => newPosts);
-  }
-
   return (
     <div className="App">
       <NavBar />
       <Switch>
         <Route exact path="/">
-          <Home posts={posts} />
+          <Home />
         </Route>
         <Route exact path="/posts/:postId">
-          <PostDetails posts={posts} updatePost={updatePost} deletePost={deletePost} />
+          <PostDetails />
         </Route>
         <Route exact path="/new">
-          <AddEditPostForm addEditPost={addPost} />
+          <AddEditPostForm />
         </Route>
         <Route>
           <NotFound />
