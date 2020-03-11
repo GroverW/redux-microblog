@@ -4,7 +4,7 @@ function Home() {
 
   return (
     <div className="Home">
-
+      <h1>Microblog</h1>
     </div>
   )
 }

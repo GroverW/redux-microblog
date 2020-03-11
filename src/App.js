@@ -4,6 +4,7 @@ import {Switch, Route} from 'react-router-dom';
 import NavBar from './NavBar';
 import Home from './Home';
 import AddPostForm from './AddPostForm';
+import NotFound from './NotFound';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route exact path="/new">
           <AddPostForm />
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
     </div>
