@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 const INITIAL_STATE = {
   title: "",
@@ -7,13 +8,13 @@ const INITIAL_STATE = {
   body: ""
 }
 
-function AddPostForm() {
-  const [ formData, setFormData ] = useState(INITIAL_STATE);
+function AddPostForm({ addPost }) {
+  const [formData, setFormData] = useState(INITIAL_STATE);
   const history = useHistory();
 
 
   const handleChange = evt => {
-    const {name, value} = evt.target;
+    const { name, value } = evt.target;
     setFormData(oldData => ({
       ...oldData,
       [name]: value
@@ -22,7 +23,11 @@ function AddPostForm() {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-
+    addPost({
+      ...formData,
+      id: uuid()
+    });
+    history.push('/');
   }
 
   const handleCancel = () => {
