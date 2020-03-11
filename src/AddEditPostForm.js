@@ -8,8 +8,8 @@ const INITIAL_STATE = {
   body: ""
 }
 
-function AddPostForm({ addPost }) {
-  const [formData, setFormData] = useState(INITIAL_STATE);
+function AddEditPostForm({ addEditPost, post = null }) {
+  const [formData, setFormData] = useState(post || INITIAL_STATE);
   const history = useHistory();
 
 
@@ -23,10 +23,12 @@ function AddPostForm({ addPost }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addPost({
+    const id = post ? post.id : uuid();
+    console.log(id);
+    addEditPost({
       ...formData,
-      id: uuid()
-    });
+      id
+    }, id);
     history.push('/');
   }
 
@@ -35,7 +37,8 @@ function AddPostForm({ addPost }) {
   }
 
   return (
-    <div className="AddPostForm">
+    <div className="AddEditPostForm">
+      <h1>{post ? "Edit" : "New"} Post</h1>
       <form>
         <label htmlFor="title">Title</label>
         <input type="text"
@@ -65,4 +68,4 @@ function AddPostForm({ addPost }) {
   )
 }
 
-export default AddPostForm;
+export default AddEditPostForm;
