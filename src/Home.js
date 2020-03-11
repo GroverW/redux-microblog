@@ -7,7 +7,7 @@ function Home({ posts }) {
     <div className="Home">
       <h1>Microblog</h1>
       {posts.map(post => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} mode="list"/>
       ))}
     </div>
   )

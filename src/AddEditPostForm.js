@@ -49,18 +49,18 @@ function AddEditPostForm({ addEditPost, post = null, toggleForm }) {
           value={formData.title}
           onChange={handleChange}
         />
-        <label htmlFor="body">Body</label>
-        <input type="text"
-          id="body"
-          name="body"
-          value={formData.body}
-          onChange={handleChange}
-        />
         <label htmlFor="description">Description</label>
         <input type="text"
           id="description"
           name="description"
           value={formData.description}
+          onChange={handleChange}
+        />
+        <label htmlFor="body">Body</label>
+        <input type="text"
+          id="body"
+          name="body"
+          value={formData.body}
           onChange={handleChange}
         />
         <button onClick={handleSubmit}>Save</button>
