@@ -5,8 +5,8 @@ import {
   DELETE_COMMENT
 } from './actionTypes';
 
-export function addUpdatePost(post, id) {
-  return { type: ADD_UPDATE_POST, payload: { post, id } };
+export function addUpdatePost(post) {
+  return { type: ADD_UPDATE_POST, payload: { post } };
 }
 
 export function deletePost(id) {

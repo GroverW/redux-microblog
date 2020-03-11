@@ -29,10 +29,8 @@ function AddEditPostForm({ post = null, toggleForm }) {
     const comments = post ? post.comments : [];
 
     dispatch(addUpdatePost({
-      ...formData,
-      id,
-      comments
-    }, id));
+      ...formData, id, comments
+    }));
 
     post ? toggleForm() : history.push("/");
   }

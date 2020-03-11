@@ -3,8 +3,10 @@ import { useParams, useHistory, Redirect } from 'react-router-dom';
 import Post from './Post';
 import AddEditPostForm from './AddEditPostForm';
 import AddCommentForm from './AddCommentForm';
+import Comment from './Comment';
 import { deletePost, addComment, deleteComment } from './actions';
 import { useSelector, useDispatch } from 'react-redux';
+
 
 function PostDetails() {
   const [isEditing, setIsEditing] = useState(false);
@@ -36,20 +38,22 @@ function PostDetails() {
     dispatch(deleteComment(postId, commentId))
   }
 
+  const editingJSX = <AddEditPostForm post={post} toggleForm={handleToggle} />
+
+  const viewingJSX = <div>
+    <Post post={post} mode="single" />
+    <button onClick={handleToggle}>Edit Post</button>
+    <button onClick={handleDelete}>Delete Post</button>
+    <AddCommentForm addComment={addNewComment} />
+  </div>
+
   return (
     <div className="PostDetails">
-      {isEditing
-        ? <AddEditPostForm post={post} toggleForm={handleToggle} />
-        : <Post post={post} />}
-      {!isEditing && <button onClick={handleToggle}>Edit Post</button>}
-      {!isEditing && <button onClick={handleDelete}>Delete Post</button>}
-      {!isEditing && <AddCommentForm addComment={addNewComment} />}
+      {isEditing ? editingJSX : viewingJSX}
+
       <h2>Comments</h2>
       {post.comments.map(comment => (
-        <div key={comment.id}>
-          <button onClick={()=>delComment(comment.id)}>X</button>
-          <span>{comment.text}</span>
-        </div>
+        <Comment comment={comment} delComment={delComment} />
       ))}
     </div>
   )

@@ -11,13 +11,14 @@ const INITIAL_STATE = {
 
 
 function rootReducer(state = INITIAL_STATE, action) {
+  const oldPost = action.payload ? state.posts[action.payload.postId] : null;
   switch (action.type) {
     case ADD_UPDATE_POST:
       return {
         ...state,
         posts: {
           ...state.posts,
-          [action.payload.id]: { ...action.payload.post }
+          [action.payload.post.id]: action.payload.post
         }
       };
 
@@ -28,32 +29,30 @@ function rootReducer(state = INITIAL_STATE, action) {
         ...state,
         posts: newPosts
       };
-
+   
     case ADD_COMMENT:
-      const oldPostAdd = state.posts[action.payload.postId];
       return {
         ...state,
         posts: {
           ...state.posts,
-          [oldPostAdd.id]: {
-            ...oldPostAdd,
+          [oldPost.id]: {
+            ...oldPost, 
             comments: [
-              ...oldPostAdd.comments,
-              action.payload.comment
+              ...oldPost.comments, action.payload.comment
             ]
           }
         }
       };
 
     case DELETE_COMMENT:
-      const oldPostDel = state.posts[action.payload.postId];
       return {
         ...state,
         posts: {
           ...state.posts,
-          [oldPostDel.id]: {
-            ...oldPostDel,
-            comments: oldPostDel.comments.filter(comment => comment.id !== action.payload.commentId)
+          [oldPost.id]: {
+            ...oldPost,
+            comments: oldPost.comments.filter(
+              comment => comment.id !== action.payload.commentId)
           }
         }
       }
