@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 const INITIAL_STATE = {
