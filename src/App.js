@@ -22,6 +22,11 @@ function App() {
     setPosts(oldPosts => newPosts);
   }
 
+  const deletePost = id => {
+    const newPosts = posts.filter(post => post.id !== id);
+    setPosts(oldPosts => newPosts);
+  }
+
   return (
     <div className="App">
       <NavBar />
@@ -30,7 +35,7 @@ function App() {
           <Home posts={posts} />
         </Route>
         <Route exact path="/posts/:id">
-          <PostDetails posts={posts} updatePost={updatePost} />
+          <PostDetails posts={posts} updatePost={updatePost} deletePost = {deletePost} />
         </Route>
         <Route exact path="/new">
           <AddEditPostForm addEditPost={addPost} />
