@@ -12,19 +12,16 @@ import { loadPosts } from './actions';
 
 
 function App() {
-  console.log("app load")
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(function () {
     const dispatchPosts = async () => {
-      console.log("dispatching")
       const posts = await BackendApi.getPosts();
       if (posts) {
         dispatch(loadPosts(posts));
         setIsLoading(false);
         }
-        console.log("resp", posts)
     }
     dispatchPosts();
   }, []);

@@ -43,9 +43,19 @@ class BackendApi {
     }
   }
 
+  static async putPost(postId, post) {
+    try {
+      const resp = await axios.post(`${BASE_URL}/posts/${postId}`, post);
+      console.log("IN API", resp.data)
+      return resp;
+    } catch (err) {
+      return err;
+    }
+  }
+
   static async deletePost(postId) {
     try {
-      const resp = await axios.delete(`${BASE_URL}/posts/${postId}`)
+      const resp = await axios.delete(`${BASE_URL}/posts/${postId}`);
       return resp;
     } catch (err) {
       return err;
@@ -55,7 +65,17 @@ class BackendApi {
   static async addComment(postId, comment) {
     try {
       const resp = await axios.post(`${BASE_URL}/posts/${postId}/comments`,
-        comment)
+        comment);
+      return resp;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  static async deleteComment(postId, commentId) {
+    try {
+      const resp = await axios.delete(`${BASE_URL}/posts/${postId}/comments/${commentId}`);
+
       return resp;
     } catch (err) {
       return err;

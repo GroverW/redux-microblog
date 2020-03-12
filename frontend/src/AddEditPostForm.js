@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addUpdatePost} from './actions';
+import { addPost, putPost } from './actions';
 import BackendApi from './api';
 
 const INITIAL_STATE = {
@@ -25,16 +25,27 @@ function AddEditPostForm({ post = null, toggleForm }) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const resp = await BackendApi.addPost(formData);
-    
-    if(resp.data) {
-      // const { id, ...postDetails } = resp.data;
-      // const newPost = {[id]: { ...postDetails }}
 
-      console.log("IN FORM", resp.data);
-      dispatch(addUpdatePost(resp.data));
-      post ? toggleForm() : history.push("/");
+    if(post) {
+      const postId = Object.keys(post)[0]
+
+      dispatch(putPost(postId, formData));
+      toggleForm();
+    } else {
+      dispatch(addPost(formData));
+      history.push("/")
     }
+
+    // const resp = await BackendApi.addPost(formData);
+    
+    // if(resp.data) {
+    //   // const { id, ...postDetails } = resp.data;
+    //   // const newPost = {[id]: { ...postDetails }}
+
+    //   console.log("IN FORM", resp.data);
+    //   dispatch(addUpdatePost(resp.data));
+    //   post ? toggleForm() : history.push("/");
+    // }
   }
 
   const handleCancel = () => {

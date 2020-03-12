@@ -11,16 +11,7 @@ export function loadPosts(posts) {
   return { type: LOAD_POSTS, payload: { posts } };
 }
 
-export function addUpdatePost(post) {
-  return async function (dispatch) {
-    const resp = await BackendApi.addPost(post);
-    if (resp.data) {
-      dispatch({ type: ADD_UPDATE_POST, payload: { post } });
-    }
-  }
-}
-
-// export function updatePost(post) {
+// export function addUpdatePost(post) {
 //   return async function (dispatch) {
 //     const resp = await BackendApi.addPost(post);
 //     if (resp.data) {
@@ -29,23 +20,47 @@ export function addUpdatePost(post) {
 //   }
 // }
 
-export function getSinglePost(postId){
-  return async function(dispatch) {
-    const resp = await BackendApi.getPost(postId);
-    if (resp.data){
-      dispatch(updatePost(resp.data));
+function addUpdatePost(post){
+  return { type: ADD_UPDATE_POST, payload: { post } };
+}
+
+export function addPost(post) {
+  return async function (dispatch) {
+    const resp = await BackendApi.addPost(post);
+
+    if(resp.data) {
+      const newPost = {
+          ...resp.data,
+          comments: []
+        }
+
+      dispatch(addUpdatePost(newPost));
     }
   }
 }
 
-function updatePost(post){
-  return { type: ADD_UPDATE_POST, payload: { post } };
+export function putPost(postId, post) {
+  return async function (dispatch) {
+    const resp = await BackendApi.putPost(postId, post);
+
+    if(resp.data) {
+      dispatch(addUpdatePost(resp.data));
+    }
+  }
 }
 
+export function getSinglePost(postId){
+  return async function(dispatch) {
+    const resp = await BackendApi.getPost(postId);
+    if (resp.data){
+      dispatch(addUpdatePost(resp.data));
+    }
+  }
+}
 
 export function deletePost(id) {
   return async function (dispatch) {
-    const resp = await BackendApi.deletePost(id);
+    await BackendApi.deletePost(id);
     dispatch({ type: DELETE_POST, payload: { id } });
   }
 }
@@ -60,5 +75,8 @@ export function addComment(postId, comment) {
 }
 
 export function deleteComment(postId, commentId) {
-  return { type: DELETE_COMMENT, payload: { postId, commentId } };
+  return async function (dispatch) {
+    await BackendApi.deleteComment(postId, commentId);
+    dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
+  }
 }

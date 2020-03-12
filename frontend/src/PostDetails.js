@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from 'react-redux';
 function PostDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  // const [post, setPost] = useState(null)
   
   const { postId } = useParams();
   const post = useSelector(st => st.posts[postId]);
@@ -19,12 +18,11 @@ function PostDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    dispatch(getSinglePost(postId));
+    if(!post.body) {
+      dispatch(getSinglePost(postId));
+    }
     setIsLoading(false);
-  }, []);
-
-  // const post = useSelector(store => store.posts[postId]);
+  }, [dispatch]);
 
   if (!isLoading && !post) {
     return <Redirect to="/NotFound" />
