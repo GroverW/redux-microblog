@@ -26,13 +26,13 @@ function AddEditPostForm({ post = null, toggleForm }) {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const resp = await BackendApi.addPost(formData);
-
+    
     if(resp.data) {
-      const { id, ...postDetails } = resp.data;
-      const newPost = {[id]: { ...postDetails }}
+      // const { id, ...postDetails } = resp.data;
+      // const newPost = {[id]: { ...postDetails }}
 
-      console.log({newPost});
-      dispatch(addUpdatePost(newPost));
+      console.log("IN FORM", resp.data);
+      dispatch(addUpdatePost(resp.data));
       post ? toggleForm() : history.push("/");
     }
   }
