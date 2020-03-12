@@ -63,9 +63,9 @@ function PostDetails() {
       {isEditing ? editingJSX : viewingJSX}
 
       <h2>Comments</h2>
-      {post.comments ? post.comments.map(comment => (
+      {post.comments && post.comments.map(comment => (
         <Comment key={comment.id} comment={comment} delComment={delComment} />
-      )) : null}
+      ))}
     </div>
   )
 }

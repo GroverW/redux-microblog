@@ -7,26 +7,21 @@ import AddEditPostForm from './AddEditPostForm';
 import NotFound from './NotFound';
 import PostDetails from './PostDetails';
 import BackendApi from './api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadPosts } from './actions';
 
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-
+  const posts = useSelector(st => st.posts);
+  
   useEffect(function () {
-    const dispatchPosts = async () => {
-      const posts = await BackendApi.getPosts();
-      if (posts) {
-        dispatch(loadPosts(posts));
-        setIsLoading(false);
-        }
-    }
-    dispatchPosts();
-  }, []);
+    dispatch(loadPosts());
+    setIsLoading(false);
+  }, [dispatch]);
 
-  if (isLoading){
+  if (!posts || isLoading) {
     return "Loading...";
   };
 

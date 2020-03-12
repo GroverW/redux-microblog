@@ -2,6 +2,7 @@ import {
   LOAD_POSTS,
   ADD_POST,
   UPDATE_POST,
+  LOAD_SINGLE_POST,
   DELETE_POST,
   ADD_COMMENT,
   DELETE_COMMENT
@@ -47,6 +48,18 @@ function rootReducer(state = INITIAL_STATE, action) {
           }
         }
       };
+
+      case LOAD_SINGLE_POST:
+        return {
+          ...state,
+          posts: {
+            ...state.posts,
+            [action.payload.post.id]: {
+              ...state.posts[action.payload.post.id], 
+              ...action.payload.post
+            }
+          }
+        };
 
     case DELETE_POST:
       const newPosts = { ...state.posts };

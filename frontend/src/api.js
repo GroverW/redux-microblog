@@ -16,6 +16,7 @@ class BackendApi {
             votes: post.votes
           }
         }), {});
+        console.log("api",posts)
       return posts;
     } catch (err) {
       return err;
