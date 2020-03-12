@@ -13,8 +13,7 @@ class BackendApi {
           [post.id]: {
             title: post.title,
             description: post.description,
-            votes: post.votes,
-            comments: []
+            votes: post.votes
           }
         }), {});
       return posts;
@@ -45,7 +44,7 @@ class BackendApi {
 
   static async putPost(postId, post) {
     try {
-      const resp = await axios.post(`${BASE_URL}/posts/${postId}`, post);
+      const resp = await axios.put(`${BASE_URL}/posts/${postId}`, post);
       console.log("IN API", resp.data)
       return resp;
     } catch (err) {

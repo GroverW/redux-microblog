@@ -1,6 +1,7 @@
 import {
   LOAD_POSTS,
-  ADD_UPDATE_POST,
+  ADD_POST,
+  UPDATE_POST,
   DELETE_POST,
   ADD_COMMENT,
   DELETE_COMMENT
@@ -20,21 +21,16 @@ export function loadPosts(posts) {
 //   }
 // }
 
-function addUpdatePost(post){
-  return { type: ADD_UPDATE_POST, payload: { post } };
-}
+// function addUpdatePost(post) {
+//   return { type: ADD_UPDATE_POST, payload: { post } };
+// }
 
 export function addPost(post) {
   return async function (dispatch) {
     const resp = await BackendApi.addPost(post);
 
-    if(resp.data) {
-      const newPost = {
-          ...resp.data,
-          comments: []
-        }
-
-      dispatch(addUpdatePost(newPost));
+    if (resp.data) {
+      dispatch({ type: ADD_POST, payload: { post: resp.data } });
     }
   }
 }
@@ -43,17 +39,17 @@ export function putPost(postId, post) {
   return async function (dispatch) {
     const resp = await BackendApi.putPost(postId, post);
 
-    if(resp.data) {
-      dispatch(addUpdatePost(resp.data));
+    if (resp.data) {
+      dispatch({ type: UPDATE_POST, payload: { post: resp.data } });
     }
   }
 }
 
-export function getSinglePost(postId){
-  return async function(dispatch) {
+export function getSinglePost(postId) {
+  return async function (dispatch) {
     const resp = await BackendApi.getPost(postId);
-    if (resp.data){
-      dispatch(addUpdatePost(resp.data));
+    if (resp.data) {
+      dispatch({ type: UPDATE_POST, payload: { post: resp.data } });
     }
   }
 }

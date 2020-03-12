@@ -1,6 +1,7 @@
 import {
   LOAD_POSTS,
-  ADD_UPDATE_POST,
+  ADD_POST,
+  UPDATE_POST,
   DELETE_POST,
   ADD_COMMENT,
   DELETE_COMMENT
@@ -11,18 +12,39 @@ const INITIAL_STATE = {
 }
 
 function rootReducer(state = INITIAL_STATE, action) {
-  const oldPost = action.payload ? state.posts[action.payload.postId] : null;
+  const oldPost = action.payload ? state.posts[action.payload.postId] : {};
   switch (action.type) {
-    case LOAD_POSTS: 
-      return {...state, posts: action.payload.posts};
-    
+    case LOAD_POSTS:
+      return { ...state, posts: action.payload.posts };
 
-    case ADD_UPDATE_POST:
+
+    // case ADD_UPDATE_POST:
+    //   return {
+    //     ...state,
+    //     posts: {
+    //       ...state.posts,
+    //       [action.payload.post.id]: {...oldPost, ...action.payload.post}
+    //     }
+    //   };
+
+    case ADD_POST:
       return {
         ...state,
         posts: {
           ...state.posts,
           [action.payload.post.id]: action.payload.post
+        }
+      };
+
+    case UPDATE_POST:
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.payload.post.id]: {
+            ...state.posts[action.payload.post.id], 
+            ...action.payload.post
+          }
         }
       };
 
@@ -33,17 +55,17 @@ function rootReducer(state = INITIAL_STATE, action) {
         ...state,
         posts: newPosts
       };
-   
+
     case ADD_COMMENT:
-      console.log("action", action)
+      const oldComments = oldPost.comments || [];
       return {
         ...state,
         posts: {
           ...state.posts,
           [oldPost.id]: {
-            ...oldPost, 
+            ...oldPost,
             comments: [
-              ...oldPost.comments, action.payload.comment
+              ...oldComments, action.payload.comment
             ]
           }
         }

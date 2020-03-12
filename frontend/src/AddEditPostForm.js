@@ -28,8 +28,9 @@ function AddEditPostForm({ post = null, toggleForm }) {
 
     if(post) {
       const postId = Object.keys(post)[0]
+      console.log("add-edit", post)
 
-      dispatch(putPost(postId, formData));
+      dispatch(putPost(post.id, formData));
       toggleForm();
     } else {
       dispatch(addPost(formData));
