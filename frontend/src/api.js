@@ -13,7 +13,8 @@ class BackendApi {
           [post.id]: {
             title: post.title,
             description: post.description,
-            votes: post.votes
+            votes: post.votes,
+            comments: []
           }
         }), {});
       return posts;
@@ -41,6 +42,26 @@ class BackendApi {
       return err;
     }
   }
+
+  static async deletePost(postId) {
+    try {
+      const resp = await axios.delete(`${BASE_URL}/posts/${postId}`)
+      return resp;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  static async addComment(postId, comment) {
+    try {
+      const resp = await axios.post(`${BASE_URL}/posts/${postId}/comments`,
+        comment)
+      return resp;
+    } catch (err) {
+      return err;
+    }
+  }
+
 }
 
 export default BackendApi;

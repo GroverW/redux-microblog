@@ -36,6 +36,7 @@ function rootReducer(state = INITIAL_STATE, action) {
       };
    
     case ADD_COMMENT:
+      console.log("action", action)
       return {
         ...state,
         posts: {

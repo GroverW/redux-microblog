@@ -4,33 +4,27 @@ import Post from './Post';
 import AddEditPostForm from './AddEditPostForm';
 import AddCommentForm from './AddCommentForm';
 import Comment from './Comment';
-import { deletePost, addComment, deleteComment } from './actions';
+import { deletePost, addComment, deleteComment, getSinglePost } from './actions';
 import { useSelector, useDispatch } from 'react-redux';
-import BackendApi from './api';
 
 
 function PostDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [post, setPost] = useState(null)
-
+  // const [post, setPost] = useState(null)
+  
   const { postId } = useParams();
+  const post = useSelector(st => st.posts[postId]);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getPost = async () => {
-      const resp = await BackendApi.getPost(postId);
 
-      if(resp.data) {
-        setPost(resp.data);
-        setIsLoading(false)
-      }
-    }
-    getPost();
+    dispatch(getSinglePost(postId));
+    setIsLoading(false);
   }, []);
 
   // const post = useSelector(store => store.posts[postId]);
-  const dispatch = useDispatch();
 
   if (!isLoading && !post) {
     return <Redirect to="/NotFound" />
@@ -72,7 +66,7 @@ function PostDetails() {
 
       <h2>Comments</h2>
       {post.comments.map(comment => (
-        <Comment comment={comment} delComment={delComment} />
+        <Comment key={comment.id} comment={comment} delComment={delComment} />
       ))}
     </div>
   )
