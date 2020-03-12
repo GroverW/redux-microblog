@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { addUpdatePost} from './actions';
+import BackendApi from './api';
 
 const INITIAL_STATE = {
   title: "",
@@ -23,16 +23,18 @@ function AddEditPostForm({ post = null, toggleForm }) {
     }));
   }
 
-  const handleSubmit = evt => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const id = post ? post.id : uuid();
-    const comments = post ? post.comments : [];
+    const resp = await BackendApi.addPost(formData);
 
-    dispatch(addUpdatePost({
-      ...formData, id, comments
-    }));
+    if(resp.data) {
+      const { id, ...postDetails } = resp.data;
+      const newPost = {[id]: { ...postDetails }}
 
-    post ? toggleForm() : history.push("/");
+      console.log({newPost});
+      dispatch(addUpdatePost(newPost));
+      post ? toggleForm() : history.push("/");
+    }
   }
 
   const handleCancel = () => {

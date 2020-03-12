@@ -10,6 +10,8 @@ function Home() {
       description: entry[1].description
     })))
 
+    console.log("HOME POSTS", posts);
+
   return (
     <div className="Home">
       <h1>Microblog</h1>

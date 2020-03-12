@@ -18,6 +18,7 @@ function rootReducer(state = INITIAL_STATE, action) {
     
 
     case ADD_UPDATE_POST:
+      console.log("IN REDUCER",action.payload.post)
       return {
         ...state,
         posts: {

@@ -6,7 +6,7 @@ class BackendApi {
   static async getPosts() {
     try {
       const resp = await axios.get(`${BASE_URL}/posts`);
-      console.log("inside api class", resp)
+
       const posts = resp.data
         .reduce((posts, post) => ({
           ...posts,
@@ -25,8 +25,17 @@ class BackendApi {
   static async getPost(postId) {
     try {
       const resp = await axios.get(`${BASE_URL}/posts/${postId}`)
-      console.log("inside api class", resp);
 
+      return resp;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  static async addPost(post) {
+    try {
+      const resp = await axios.post(`${BASE_URL}/posts`, post);
+      console.log("IN API", resp.data)
       return resp;
     } catch (err) {
       return err;
