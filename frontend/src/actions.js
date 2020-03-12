@@ -5,7 +5,8 @@ import {
   LOAD_SINGLE_POST,
   DELETE_POST,
   ADD_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  UPDATE_POST_VOTES
 } from './actionTypes';
 import BackendApi from './api';
 
@@ -69,5 +70,15 @@ export function deleteComment(postId, commentId) {
   return async function (dispatch) {
     await BackendApi.deleteComment(postId, commentId);
     dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
+  }
+}
+
+export function updatePostVotes(postId, direction) {
+  return async function (dispatch) {
+    const resp = await BackendApi.updatePostVotes(postId, direction);
+
+    if (resp.data) {
+      dispatch({ type: UPDATE_POST_VOTES, payload: { postId, votes: resp.data.votes } })
+    }
   }
 }

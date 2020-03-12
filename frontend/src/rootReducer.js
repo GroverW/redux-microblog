@@ -5,7 +5,8 @@ import {
   LOAD_SINGLE_POST,
   DELETE_POST,
   ADD_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  UPDATE_POST_VOTES
 } from './actionTypes';
 
 const INITIAL_STATE = {
@@ -93,6 +94,18 @@ function rootReducer(state = INITIAL_STATE, action) {
             ...oldPost,
             comments: oldPost.comments.filter(
               comment => comment.id !== action.payload.commentId)
+          }
+        }
+      }
+
+    case UPDATE_POST_VOTES:
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.payload.postId]: {
+            ...oldPost,
+            votes: action.payload.votes
           }
         }
       }

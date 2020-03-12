@@ -16,7 +16,7 @@ class BackendApi {
             votes: post.votes
           }
         }), {});
-        console.log("api",posts)
+
       return posts;
     } catch (err) {
       return err;
@@ -36,7 +36,7 @@ class BackendApi {
   static async addPost(post) {
     try {
       const resp = await axios.post(`${BASE_URL}/posts`, post);
-      console.log("IN API", resp.data)
+
       return resp;
     } catch (err) {
       return err;
@@ -46,7 +46,7 @@ class BackendApi {
   static async putPost(postId, post) {
     try {
       const resp = await axios.put(`${BASE_URL}/posts/${postId}`, post);
-      console.log("IN API", resp.data)
+
       return resp;
     } catch (err) {
       return err;
@@ -75,6 +75,17 @@ class BackendApi {
   static async deleteComment(postId, commentId) {
     try {
       const resp = await axios.delete(`${BASE_URL}/posts/${postId}/comments/${commentId}`);
+
+      return resp;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  static async updatePostVotes(postId, direction) {
+    try {
+
+      const resp = await axios.post(`${BASE_URL}/posts/${postId}/vote/${direction}`);
 
       return resp;
     } catch (err) {

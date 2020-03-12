@@ -7,8 +7,10 @@ function Home() {
     .map(entry => ({
       id: entry[0],
       title: entry[1].title,
-      description: entry[1].description
+      description: entry[1].description,
+      votes: entry[1].votes
     })))
+    .sort((a,b) => b.votes - a.votes);
 
   return (
     <div className="Home">
