@@ -1,0 +1,42 @@
+.Post-list {
+  display: inline-block;
+  height: 100px;
+  width: 280px;
+  margin: 0px 10px 10px 0px ;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 5px;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, .2);
+}
+
+.Post-list-title  {
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+}
+
+.Post-list-title a, .Post-list-title a:visited{
+  color: rgb(22, 150, 224);
+  text-decoration: none;
+}
+
+.Post-list-title a:hover {
+  color: rgb(9, 127, 196);
+}
+
+.Post-list-description {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.Post-single-title  {
+  font-size: 30px;
+ 
+}

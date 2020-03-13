@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function PostDetails() {
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   const { postId } = useParams();
   const post = useSelector(st => st.posts[postId]);
@@ -22,9 +23,17 @@ function PostDetails() {
       dispatch(getSinglePost(postId));
     }
   }, [dispatch]);
+
+  if (post && isLoading){
+    setIsLoading(false);
+  };
   
-  if (!post) {
+  if (!isLoading && !post) {
     return <Redirect to="/NotFound" />
+  }
+
+  if (isLoading) {
+    return "Loading...";
   }
 
   const handleToggle = () => {
