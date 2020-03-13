@@ -8,6 +8,7 @@ import NotFound from './NotFound';
 import PostDetails from './PostDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPosts } from './actions';
+import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div className="App">
+      <BrowserRouter>
         <NavBar />
       <div className="App-container">
         <Switch>
@@ -43,6 +45,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+      </BrowserRouter>
     </div>
   );
 }

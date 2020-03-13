@@ -19,18 +19,23 @@ function PostDetails() {
 
   
   useEffect(() => {
-    if(post && !post.body) {
-      dispatch(getSinglePost(postId));
+    const getSingle = async () => { 
+    if(!post || (post && !post.comments)) {
+      await dispatch(getSinglePost(postId));
+      setIsLoading(false);
     }
+  }
+  getSingle();
   }, [dispatch]);
+
+  if (!isLoading && !post) {
+    return <Redirect to="/NotFound" />
+  }
 
   if (post && isLoading){
     setIsLoading(false);
   };
   
-  if (!isLoading && !post) {
-    return <Redirect to="/NotFound" />
-  }
 
   if (isLoading) {
     return "Loading...";
@@ -67,7 +72,7 @@ function PostDetails() {
       {isEditing ? editingJSX : viewingJSX}
 
       <h2>Comments</h2>
-      {post.comments && post.comments.map(comment => (
+      {post && post.comments && post.comments.map(comment => (
         <Comment key={comment.id} comment={comment} delComment={delComment} />
       ))}
     </div>
