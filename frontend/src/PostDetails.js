@@ -10,26 +10,21 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function PostDetails() {
   const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   
   const { postId } = useParams();
   const post = useSelector(st => st.posts[postId]);
   const history = useHistory();
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
-    if(!post.body) {
+    if(post && !post.body) {
       dispatch(getSinglePost(postId));
     }
-    setIsLoading(false);
   }, [dispatch]);
-
-  if (!isLoading && !post) {
+  
+  if (!post) {
     return <Redirect to="/NotFound" />
-  }
-
-  if (isLoading) {
-    return "Loading...";
   }
 
   const handleToggle = () => {
