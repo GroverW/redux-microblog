@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addPost, putPost } from './actions';
-import BackendApi from './api';
+import './AddEditPostForm.css';
 
 const INITIAL_STATE = {
   title: "",
@@ -27,26 +27,12 @@ function AddEditPostForm({ post = null, toggleForm }) {
     evt.preventDefault();
 
     if(post) {
-      const postId = Object.keys(post)[0]
-      console.log("add-edit", post)
-
       dispatch(putPost(post.id, formData));
       toggleForm();
     } else {
       dispatch(addPost(formData));
       history.push("/")
     }
-
-    // const resp = await BackendApi.addPost(formData);
-    
-    // if(resp.data) {
-    //   // const { id, ...postDetails } = resp.data;
-    //   // const newPost = {[id]: { ...postDetails }}
-
-    //   console.log("IN FORM", resp.data);
-    //   dispatch(addUpdatePost(resp.data));
-    //   post ? toggleForm() : history.push("/");
-    // }
   }
 
   const handleCancel = () => {
@@ -58,28 +44,28 @@ function AddEditPostForm({ post = null, toggleForm }) {
       <h1>{post ? "Edit" : "New"} Post</h1>
       <form>
         <label htmlFor="title">Title</label>
-        <input type="text"
+        <input className="AddEditForm-input" type="text"
           id="title"
           name="title"
           value={formData.title}
           onChange={handleChange}
         />
         <label htmlFor="description">Description</label>
-        <input type="text"
+        <input className="AddEditForm-input" type="text"
           id="description"
           name="description"
           value={formData.description}
           onChange={handleChange}
         />
         <label htmlFor="body">Body</label>
-        <input type="text"
+        <textarea className="AddEditForm-input" type="text"
           id="body"
           name="body"
           value={formData.body}
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Save</button>
-        <button onClick={handleCancel}>Cancel</button>
+        <button className="AddEditForm-btn-save" onClick={handleSubmit}>Save</button>
+        <button className="AddEditForm-btn-cancel" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
   )

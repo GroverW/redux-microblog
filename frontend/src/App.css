@@ -1,5 +1,11 @@
-.App {
+.App, body {
   text-align: center;
+  background-color: rgb(200,200,200);
+}
+
+.App-container {
+  margin: auto;
+  width: 600px;
 }
 
 .App-logo {
